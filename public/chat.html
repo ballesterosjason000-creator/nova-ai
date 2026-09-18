@@ -23,7 +23,6 @@
             --accent: #8b5cf6;
             --accent-hover: #7c3aed;
             --user: #262333;
-            --danger: #ef4444;
         }
 
         body.light {
@@ -57,8 +56,6 @@
             display: flex;
             height: 100vh;
         }
-
-        /* SIDEBAR */
 
         .sidebar {
             width: 260px;
@@ -159,8 +156,6 @@
             color: var(--text);
         }
 
-        /* MAIN */
-
         .main {
             flex: 1;
             display: flex;
@@ -203,8 +198,6 @@
         .home-button:hover {
             background: var(--card-hover);
         }
-
-        /* CHAT */
 
         .messages {
             flex: 1;
@@ -288,8 +281,6 @@
             color: var(--muted);
             margin-bottom: 4px;
         }
-
-        /* INPUT */
 
         .input-area {
             padding: 15px 20px 22px;
@@ -502,18 +493,13 @@
 </div>
 
 <script>
+
     // ============================================================
-    // NOVA AI PUBLIC BACKEND
+    // BACKEND
     // ============================================================
 
-    const API_BASE =
-        "https://labored-overlap-reappoint.ngrok-free.dev";
-
-    const CHAT_ENDPOINT =
-        `${API_BASE}/api/chat`;
-
-    const MODELS_ENDPOINT =
-        `${API_BASE}/api/models`;
+    const CHAT_ENDPOINT = "/api/chat";
+    const MODELS_ENDPOINT = "/api/models";
 
 
     // ============================================================
@@ -539,17 +525,22 @@
 
     settings = {
         model: settings.model || "llama3.2:3b",
+
         temperature:
             typeof settings.temperature === "number"
                 ? settings.temperature
                 : 0.7,
+
         length:
             settings.length || "medium",
+
         personality:
             settings.personality ||
             "Be friendly, helpful, smart, direct, and easy to understand.",
+
         memory:
             settings.memory !== false,
+
         casual:
             settings.casual !== false
     };
@@ -561,9 +552,6 @@
 
     const messagesElement =
         document.getElementById("messages");
-
-    const welcomeElement =
-        document.getElementById("welcome");
 
     const input =
         document.getElementById("messageInput");
@@ -703,7 +691,7 @@
         messages = [];
 
         messagesElement.innerHTML = `
-            <div class="welcome" id="welcome">
+            <div class="welcome">
                 <div class="welcome-inner">
                     <div class="welcome-icon">✦</div>
                     <h1>How can I help?</h1>
@@ -752,16 +740,16 @@
 
 
     // ============================================================
-    // ADD MESSAGE TO UI
+    // ADD MESSAGE
     // ============================================================
 
-    function addMessageToUI(
-        role,
-        content
-    ) {
+    function addMessageToUI(role, content) {
 
-        if (welcomeElement) {
-            welcomeElement.remove();
+        const welcome =
+            document.querySelector(".welcome");
+
+        if (welcome) {
+            welcome.remove();
         }
 
         const message =
@@ -800,8 +788,7 @@
         const text =
             document.createElement("div");
 
-        text.textContent =
-            content;
+        text.textContent = content;
 
         body.appendChild(roleText);
         body.appendChild(text);
@@ -819,7 +806,7 @@
 
 
     // ============================================================
-    // TYPING INDICATOR
+    // TYPING
     // ============================================================
 
     function addTypingIndicator() {
@@ -835,19 +822,15 @@
 
         message.innerHTML = `
             <div class="avatar">✦</div>
-
             <div class="message-content">
-
                 <div class="message-role">
                     Nova AI
                 </div>
-
                 <div class="typing">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-
             </div>
         `;
 
@@ -902,14 +885,6 @@
         addTypingIndicator();
 
         try {
-
-            /*
-             * Memory ON:
-             * Send the conversation history.
-             *
-             * Memory OFF:
-             * Send only the latest user message.
-             */
 
             let apiMessages;
 
@@ -990,22 +965,20 @@
 
             removeTypingIndicator();
 
-
             addMessageToUI(
                 "assistant",
                 reply
             );
-
 
             messages.push({
                 role: "assistant",
                 content: reply
             });
 
-
             saveCurrentChat();
 
         }
+
         catch (error) {
 
             console.error(
@@ -1020,24 +993,22 @@
                 "Sorry, I couldn't connect to Nova right now. Make sure the Nova server and ngrok tunnel are running."
             );
         }
+
         finally {
 
             sendButton.disabled = false;
-
             input.focus();
         }
     }
 
 
     // ============================================================
-    // SAVE CURRENT CHAT
+    // SAVE CHAT
     // ============================================================
 
     function saveCurrentChat() {
 
-        if (
-            messages.length === 0
-        ) {
+        if (messages.length === 0) {
             return;
         }
 
@@ -1049,8 +1020,7 @@
 
         const title =
             firstUserMessage
-                ? firstUserMessage.content
-                    .slice(0, 45)
+                ? firstUserMessage.content.slice(0, 45)
                 : "New conversation";
 
 
@@ -1075,14 +1045,10 @@
         } else {
 
             chats.push({
-
                 title,
-
                 messages
-
             });
         }
-
 
         saveChats();
     }
@@ -1150,7 +1116,7 @@
 
 
     // ============================================================
-    // LOAD MODELS FROM NOVA BACKEND
+    // LOAD MODELS
     // ============================================================
 
     async function loadModels() {
@@ -1194,6 +1160,7 @@
             }
 
         }
+
         catch (error) {
 
             console.warn(
