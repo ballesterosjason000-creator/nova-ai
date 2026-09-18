@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nova AI — Your Personal AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #08090d;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            width: 100%;
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            border-bottom: 1px solid #1d1f27;
+
+            background: rgba(8, 9, 13, 0.8);
+
+            backdrop-filter: blur(15px);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #2563eb
+            );
+
+            font-size: 17px;
+        }
+
+        nav a {
+            color: #a9acb7;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            padding: 10px 18px;
+
+            background: white;
+            color: #08090d !important;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: calc(100vh - 72px);
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(99, 102, 241, 0.22),
+                    transparent 65%
+                );
+
+            top: -200px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            pointer-events: none;
+        }
+
+        .badge {
+            border: 1px solid #292c38;
+
+            background: #11131a;
+
+            padding: 8px 15px;
+
+            border-radius: 999px;
+
+            color: #b8bbc7;
+
+            font-size: 13px;
+
+            margin-bottom: 28px;
+
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 88px);
+
+            line-height: 1.05;
+
+            letter-spacing: -4px;
+
+            max-width: 900px;
+
+            position: relative;
+        }
+
+        .gradient {
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #9da5ff,
+                    #c084fc
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            color: #9b9eaa;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            margin-top: 28px;
+
+            position: relative;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            gap: 14px;
+
+            margin-top: 35px;
+
+            position: relative;
+        }
+
+        .primary {
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: #08090d;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .secondary {
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            border: 1px solid #2b2e38;
+
+            background: #11131a;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        /* FEATURES */
+
+        section {
+            padding: 100px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+
+            font-size: 38px;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+
+            color: #888b98;
+
+            margin-bottom: 55px;
+        }
+
+        .features {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 28px;
+
+            background: #101117;
+
+            border: 1px solid #20232d;
+
+            border-radius: 18px;
+
+            transition: 0.25s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+
+            border-color: #373b49;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 19px;
+
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #888b98;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+        /* CTA */
+
+        .cta {
+            max-width: 900px;
+
+            margin: 30px auto 100px;
+
+            padding: 70px 30px;
+
+            text-align: center;
+
+            border-radius: 25px;
+
+            border: 1px solid #292c38;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #12141c,
+                    #0d0f15
+                );
+        }
+
+        .cta h2 {
+            font-size: 42px;
+
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #9295a2;
+
+            margin-bottom: 30px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #1d1f27;
+
+            padding: 30px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: #707380;
+
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            nav .links {
+                display: none;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+
+                width: 100%;
+
+                max-width: 300px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 10px;
+
+                text-align: center;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ✦
+            </div>
+
+            Nova AI
+
+        </div>
+
+        <div class="links">
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a
+                href="chat.html"
+                class="nav-button"
+            >
+                Open Nova
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="glow"></div>
+
+            <div class="badge">
+                ✦ Your personal AI assistant
+            </div>
+
+            <h1>
+                Think faster.
+                <span class="gradient">
+                    Create more.
+                </span>
+            </h1>
+
+            <p>
+                Nova AI is a personal AI assistant
+                designed to help you learn, create,
+                code, solve problems, and explore ideas.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="chat.html"
+                    class="primary"
+                >
+                    Start chatting →
+                </a>
+
+                <a
+                    href="#features"
+                    class="secondary"
+                >
+                    Explore Nova
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section id="features">
+
+            <h2 class="section-title">
+                Built to help you
+            </h2>
+
+            <p class="section-subtitle">
+                One assistant for learning,
+                coding, creating, and everyday questions.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🧠
+                    </div>
+
+                    <h3>
+                        Intelligent
+                    </h3>
+
+                    <p>
+                        Ask questions and get useful
+                        answers powered by your local AI model.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Coding
+                    </h3>
+
+                    <p>
+                        Get help understanding programming,
+                        debugging code, and building projects.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Learning
+                    </h3>
+
+                    <p>
+                        Understand difficult topics with
+                        simple explanations and examples.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+
+        <section id="about">
+
+            <div class="cta">
+
+                <h2>
+                    Meet Nova AI.
+                </h2>
+
+                <p>
+                    A personal AI project created by Jason,
+                    built with modern web technology and
+                    local AI.
+                </p>
+
+                <a
+                    href="chat.html"
+                    class="primary"
+                >
+                    Open Nova →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <span>
+            © 2026 Nova AI
+        </span>
+
+        <span>
+            Built with Node.js + Ollama
+        </span>
+
+    </footer>
+
+</body>
+</html>

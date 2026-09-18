@@ -1,0 +1,21 @@
+{
+  "name": "nova-ai",
+  "version": "1.0.0",
+  "description": "Nova AI - Personal AI Assistant",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ai",
+    "nova",
+    "ollama",
+    "chatbot"
+  ],
+  "author": "Jason Ballesteros",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
