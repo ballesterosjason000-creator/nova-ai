@@ -32,22 +32,35 @@ app.use(
 // STATUS
 // ==========================================
 
-app.get(
-    "/api/status",
-    (req, res) => {
+app.get("/api/models", async (req, res) => {
+    try {
+        const response = await fetch(
+            "http://localhost:11434/api/tags"
+        );
+
+        if (!response.ok) {
+            return res.json({
+                models: []
+            });
+        }
+
+        const data = await response.json();
+
+        const models = (data.models || []).map(
+            model => model.name
+        );
 
         res.json({
+            models
+        });
+    } catch (error) {
+        console.error("Model list error:", error);
 
-            online: true,
-
-            name: "Nova AI",
-
-            defaultModel:
-                DEFAULT_MODEL
-
+        res.json({
+            models: []
         });
     }
-);
+});
 
 
 // ==========================================
